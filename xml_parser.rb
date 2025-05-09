@@ -5,7 +5,6 @@
 # This program parses and validates XML against ISO 20022 format rules
 
 require 'nokogiri'
-require 'optparse'
 require 'json'
 require 'pathname'
 
@@ -190,93 +189,6 @@ end
 
 # Main execution code starts here
 if __FILE__ == $PROGRAM_NAME
-  options = { rules_dir: File.join(File.dirname(__FILE__), 'rules') }
-  rule_files = []
-
-  # Parse command line options
-  OptionParser.new do |opts|
-    opts.banner = 'Usage: ruby xml_parser.rb [options] <path_to_xml_file>'
-
-    opts.on('-r', '--rules=FILE', 'JSON file containing validation rules') do |file|
-      rule_files << file
-    end
-
-    opts.on('-d', '--rules-dir=DIR', 'Directory containing rule files') do |dir|
-      options[:rules_dir] = dir
-    end
-
-    opts.on('-p', '--payment-method TAG=VALUE', 'Check specific payment method tag and value') do |tag_value|
-      tag, value = tag_value.split('=', 2)
-      options[:payment_method] = { tag: tag, value: value }
-    end
-
-    opts.on('-h', '--help', 'Show this help message') do
-      puts opts
-      exit
-    end
-  end.parse!
-
-  if ARGV.empty?
-    puts 'Missing XML file path. Use --help for usage details.'
-    exit 1
-  end
-
-  xml_file = ARGV[0]
-
-  unless File.exist?(xml_file)
-    puts "Error: File '#{xml_file}' not found"
-    exit 1
-  end
-
-  xml_content = File.read(xml_file)
-
-  # Create multi-rule validator
-  multi_validator = MultiRuleValidator.new(xml_content)
-
-  # Load specified rule files
-  rule_files.each do |file|
-    if File.exist?(file)
-      begin
-        rules = JSON.parse(File.read(file))
-        name = File.basename(file, '.json')
-        multi_validator.add_validator(rules, name)
-        puts "Loaded rules from #{file}"
-      rescue JSON::ParserError => e
-        puts "Error parsing rules file: #{e.message}"
-        exit 1
-      end
-    else
-      puts "Error: Rules file '#{file}' not found"
-      exit 1
-    end
-  end
-
-  # Load rules from directory if no specific rules specified
-  if rule_files.empty? && File.directory?(options[:rules_dir])
-    multi_validator.load_rules_from_directory(options[:rules_dir])
-  end
-
-  # Apply payment method check if specified
-  if options[:payment_method]
-    tag = options[:payment_method][:tag]
-    value = options[:payment_method][:value]
-
-    rules = {
-      'required_elements' => [tag],
-      'expected_values' => { tag => value }
-    }
-
-    multi_validator.add_validator(rules, 'PaymentMethodValidator')
-    puts "Validating that <#{tag}> contains '#{value}'"
-  end
-
-  if multi_validator.validate
-    puts 'XML validation successful! The file follows the ISO 20022 format rules.'
-  else
-    puts 'XML validation failed with the following errors:'
-    multi_validator.errors.each_with_index do |error, index|
-      puts "  #{index + 1}. #{error}"
-    end
-    exit 2
-  end
+  require_relative 'cli'
+  exit ISO20022::CLI.new.parse(ARGV).run
 end
