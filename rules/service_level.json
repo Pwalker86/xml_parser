@@ -1,0 +1,15 @@
+{
+  "required_elements": [
+    "PmtInf/SvcLvl",
+    "PmtInf/SvcLvl/Prtry",
+    "PmtInf/CtgyPurp",
+    "PmtInf/CtgyPurp/Cd",
+    "PmtInf/PmtMtd"
+  ],
+  "expected_values": {
+    "PmtInf/SvcLvl/Prtry": "NURG",
+    "PmtInf/CtgyPurp/Cd": "SUPP",
+    "PmtInf/PmtMtd": "TRF"
+  },
+  "root_element": "Document"
+}

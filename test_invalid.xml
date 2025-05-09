@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document>
+  <PmtInf>
+    <SvcLvl>
+      <Prtry>INVALID</Prtry>
+    </SvcLvl>
+    <CtgyPurp>
+      <Cd>SUPP</Cd>
+    </CtgyPurp>
+  </PmtInf>
+</Document>

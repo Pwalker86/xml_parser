@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document>
+  <!-- Service Level and Category Purpose elements -->
+  <PmtInf>
+    <SvcLvl>
+      <Prtry>NURG</Prtry>
+    </SvcLvl>
+    <CtgyPurp>
+      <Cd>SUPP</Cd>
+    </CtgyPurp>
+    <PmtMtd>TRF</PmtMtd>
+  </PmtInf>
+  
+  <!-- Creditor Agent elements -->
+  <CdtrAgt>
+    <FinInstnId>
+      <ClrSysMmbId>
+        <Id>USABA123456789</Id>
+      </ClrSysMmbId>
+    </FinInstnId>
+  </CdtrAgt>
+</Document>

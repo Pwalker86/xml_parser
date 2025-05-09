@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document>
+  <PmtInf>
+    <SvcLvl>
+      <Prtry>NURG</Prtry>
+    </SvcLvl>
+    <CtgyPurp>
+      <Cd>SUPP</Cd>
+    </CtgyPurp>
+    <PmtMtd>TRF</PmtMtd>
+  </PmtInf>
+</Document>

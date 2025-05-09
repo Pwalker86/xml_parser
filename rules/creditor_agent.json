@@ -1,0 +1,15 @@
+{
+  "required_elements": [
+    "CdtrAgt",
+    "CdtrAgt/FinInstnId",
+    "CdtrAgt/FinInstnId/ClrSysMmbId",
+    "CdtrAgt/FinInstnId/ClrSysMmbId/Id"
+  ],
+  "format_validations": {
+    "CdtrAgt/FinInstnId/ClrSysMmbId/Id": {
+      "pattern": "^USABA[0-9]{9}$",
+      "description": "Must be in format USABA followed by 9 digits"
+    }
+  },
+  "root_element": "Document"
+}
