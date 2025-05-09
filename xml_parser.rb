@@ -20,7 +20,7 @@ class ISO20022Validator
     @xml_content = xml_content
 
     begin
-      @xml_doc = Nokogiri::XML(xml_content) { |config| config.strict }
+      @xml_doc = Nokogiri::XML(xml_content, &:strict)
       @xml_doc.errors.each do |error|
         @errors << "XML parsing error: #{error}"
       end
